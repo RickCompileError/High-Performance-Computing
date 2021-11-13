@@ -113,13 +113,14 @@ void no_copy_recur_with_alg2(int arow, int acol, int brow, int bcol, int crow, i
                                 crow+lsplit[i], ccol+nsplit[j],
                                 lsplit[i+1], msplit[k+1], nsplit[j+1]);
     }else{
-        double *ap, *bp, *cp;
-        for (i=0;i<l;i++){
-            for (j=0;j<n;j++){
-                ap = &a[arow+i][acol];
-                bp = &b[brow][bcol+j];
-                cp = &c[crow+i][ccol+j];
-                for (k=0;k<m;k++){
+        register double *ap, *bp, *cp;
+        register int ii, jj, kk;
+        for (ii=0;ii<l;ii++){
+            for (jj=0;jj<n;jj++){
+                ap = &a[arow+ii][acol];
+                bp = &b[brow][bcol+jj];
+                cp = &c[crow+ii][ccol+jj];
+                for (kk=0;k<m;kk++){
                     *cp += *(ap++) * *bp;
                     bp += sz;
                 }
@@ -130,7 +131,7 @@ void no_copy_recur_with_alg2(int arow, int acol, int brow, int bcol, int crow, i
 
 void no_copy_recur_with_alg3(int arow, int acol, int brow, int bcol, int crow, int ccol, int l, int m, int n){
     int lsplit[3], msplit[3], nsplit[3];
-    int i, j, k, t;
+    int i, j, k;
     if (m*n>threshold){
         lsplit[0] = 0, lsplit[1] = l/2, lsplit[2] = l - l/2;
         msplit[0] = 0, msplit[1] = m/2, msplit[2] = m - m/2;
@@ -143,15 +144,16 @@ void no_copy_recur_with_alg3(int arow, int acol, int brow, int bcol, int crow, i
                                 crow+lsplit[i], ccol+nsplit[j],
                                 lsplit[i+1], msplit[k+1], nsplit[j+1]);
     }else{
-        double f, tmp[m];
-        for (i=0;i<n;i++){
-            for (t=0;t<m;t++) tmp[t] = b[brow+t][bcol+i];
-            for (j=0;j<l;j++){
+        register int ii, jj, kk, tt;
+        register double f, tmp[m];
+        for (ii=0;ii<n;ii++){
+            for (tt=0;tt<m;tt++) tmp[tt] = b[brow+tt][bcol+ii];
+            for (jj=0;jj<l;jj++){
                 f = 0;
-                for (k=0;k<m;k++){
-                    f += a[arow+j][acol+k]*tmp[k];
+                for (kk=0;kk<m;kk++){
+                    f += a[arow+jj][acol+kk]*tmp[kk];
                 }
-                c[crow+j][ccol+i] += f;
+                c[crow+jj][ccol+ii] += f;
             }
         }
     }
@@ -165,7 +167,7 @@ void alg4(){
 
 void copy_matrix_recur_with_alg3(int arow, int acol, int brow, int bcol, int crow, int ccol, int l, int m, int n){
     int lsplit[3], msplit[3], nsplit[3];
-    int i, j, k, t;
+    int i, j, k;
     if (m*n>threshold){
         lsplit[0] = 0, lsplit[1] = l/2, lsplit[2] = l - l/2;
         msplit[0] = 0, msplit[1] = m/2, msplit[2] = m - m/2;
@@ -179,25 +181,26 @@ void copy_matrix_recur_with_alg3(int arow, int acol, int brow, int bcol, int cro
                                 lsplit[i+1], msplit[k+1], nsplit[j+1]);
     }else{
         int splita[l][m], splitb[m][n];
-        double f, tmp[m];
-        for (i=0;i<l;i++){
-            for (j=0;j<m;j++){
-                splita[i][j] = a[arow+i][acol+j];
+        register int ii, jj, kk, tt;
+        register double f, tmp[m];
+        for (ii=0;ii<l;ii++){
+            for (jj=0;jj<m;jj++){
+                splita[ii][jj] = a[arow+ii][acol+jj];
             }
         }
-        for (i=0;i<m;i++){
-            for (j=0;j<n;j++){
-                splitb[i][j] = b[brow+i][bcol+j];
+        for (ii=0;ii<m;ii++){
+            for (jj=0;jj<n;jj++){
+                splitb[ii][jj] = b[brow+ii][bcol+jj];
             }
         }
-        for (i=0;i<n;i++){
-            for (t=0;t<m;t++) tmp[t] = splitb[t][i];
-            for (j=0;j<l;j++){
+        for (ii=0;ii<n;ii++){
+            for (tt=0;tt<m;tt++) tmp[tt] = splitb[tt][ii];
+            for (jj=0;jj<l;jj++){
                 f = 0;
-                for (k=0;k<m;k++){
-                    f += splita[j][k]*tmp[k];
+                for (kk=0;kk<m;kk++){
+                    f += splita[jj][kk]*tmp[kk];
                 }
-                c[crow+j][ccol+i] += f;
+                c[crow+jj][ccol+ii] += f;
             }
         }
     }
