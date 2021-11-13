@@ -5,8 +5,8 @@
 
 using namespace std;
 
-const int sz = 5;
-const int threshold = 4;
+const int sz = 1500;
+const int threshold = 5000;
 double a[sz][sz], b[sz][sz], c[sz][sz];
 
 void printmatrix(){
