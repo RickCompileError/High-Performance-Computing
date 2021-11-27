@@ -1,1 +1,1 @@
-g++ *.cpp -o nongram
+g++ *.cpp -o nonogram

@@ -19,20 +19,21 @@ int main(){
 void start(FILE *myfile){
     int cs, num;
     char c;
-    Board board;
+    Board* board;
     while (fscanf(myfile,"$%d\n",&cs)!=EOF){
-        board.init();
         clock_t t = clock();
+        board = new Board();
         for (int i=0;i<50;i++){
             fscanf(myfile,"%d%c",&num,&c);
             while (c!='\n'){
-                board.insert_clue(i,num);
+                board->set_clue(i,num);
                 fscanf(myfile,"%d%c",&num,&c);
             }
-            board.insert_clue(i,num);
+            board->set_clue(i,num);
         }
-        board.run();
-        board.print_board();
+        board->run();
+        cout <<board->status <<endl;
+        board->print_board();
         printf("Case %d cost: %.2f\n",cs,(float)(clock()-t)/CLOCKS_PER_SEC);
     }
 }

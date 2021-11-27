@@ -1,2 +1,2 @@
-g++ -o nongram *.cpp
+g++ -o nonogram *.cpp
 pause
