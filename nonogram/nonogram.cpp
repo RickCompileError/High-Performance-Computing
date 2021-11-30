@@ -31,9 +31,10 @@ void start(FILE *myfile){
             }
             board->set_clue(i,num);
         }
+        printf("$%d\n",cs);
         board->run();
-        cout <<board->status <<endl;
+        cout <<"Board Status: " <<board->status <<endl;
         board->print_board();
-        printf("Case %d cost: %.2f\n",cs,(float)(clock()-t)/CLOCKS_PER_SEC);
+        printf("Case %d cost: %.2f\n\n",cs,(float)(clock()-t)/CLOCKS_PER_SEC);
     }
 }
