@@ -7,7 +7,8 @@
 
 class Set{
 private:
-    int sz = SIZE+1;
+    int mxsz = SIZE+1;
+    int sz = 0;
     bool exist[SET_SZ];
     int queue[SET_SZ];
     int front, end;
@@ -18,6 +19,8 @@ public:
     int pop();
     bool empty();
     bool full();
+    int get_front();
+    int get_end();
 };
 
 #endif

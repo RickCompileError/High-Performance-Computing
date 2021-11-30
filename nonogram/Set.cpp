@@ -14,7 +14,8 @@ int Set::push(int i){
     if (full() || exist[i]) return -1;
     exist[i] = true;
     queue[end] = i;
-    end = (end+1)%sz;
+    end = (end+1)%mxsz;
+    sz++;
     return 1;
 }
 
@@ -22,7 +23,8 @@ int Set::pop(){
     if (empty()) return -1;
     int val = queue[front];
     exist[val] = false;
-    front = (front+1)%sz;
+    front = (front+1)%mxsz;
+    sz--;
     return val;
 }
 
@@ -31,5 +33,13 @@ bool Set::empty(){
 }
 
 bool Set::full(){
-    return front==(end+1)%sz;
+    return front==(end+1)%mxsz;
+}
+
+int Set::get_front(){
+    return front;
+}
+
+int Set::get_end(){
+    return end;
 }

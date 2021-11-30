@@ -1,1 +1,1 @@
-g++ *.cpp -o nonogram
+g++ nonogram.cpp Board.cpp Unit.cpp Propogate.cpp Set.cpp -o nonogram

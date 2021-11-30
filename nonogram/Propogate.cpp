@@ -21,16 +21,14 @@ void Propogate::procedure(Board* board){
         }
         after = paint(25,c->size(),c,before);
         if (before!=after){
+            u->set(after);
             int base = l<25?25:0; //determine row or col
             int ind = l%25+1; //which index need to get
             for (int i=1;i<=25;i++){
                 Unit* tmp = board->get_value(base+i-1);
                 if (get_pixel(after,i)!=get_pixel(tmp->get(),ind)){
-                    tmp->set(i,(get_pixel(after,i)>>offset));
+                    tmp->set(ind,get_pixel(after,i));
                     s->push(base+i-1);
-                }
-                if (get_pixel(after,i)!=get_pixel(before,i)){
-                    u->set(i,(get_pixel(after,i)>>offset));
                 }
             }
         }
@@ -70,13 +68,13 @@ uint64_t Propogate::ppaint(int i, int j, vector<int> *dsp, uint64_t v){
 }
 
 uint64_t Propogate::paint0(int i, int j, vector<int> *dsp, uint64_t v){
-    return set_pixel(paint(i-1,j,dsp,v),i,IZERO);
+    return set_pixel(paint(i-1,j,dsp,v),i,ZERO);
 }
 
 uint64_t Propogate::paint1(int i, int j, vector<int> *dsp, uint64_t v){
     int cond = dsp->at(j-1);
-    uint64_t tmp = set_pixel(paint(i-cond-1,j-1,dsp,v),(i-cond),IZERO);
-    while (cond--) tmp = set_pixel(tmp,(i-cond),IONE);
+    uint64_t tmp = set_pixel(paint(i-cond-1,j-1,dsp,v),(i-cond),ZERO);
+    while (cond--) tmp = set_pixel(tmp,(i-cond),ONE);
     return tmp;
 }
 

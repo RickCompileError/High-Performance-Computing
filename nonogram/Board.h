@@ -17,7 +17,6 @@ private:
     Unit value[SIZE];
     vector<int> clue[SIZE];
 public:
-    Status status;
     Board();
     void init();
     void set_clue(int ,int );
@@ -25,8 +24,10 @@ public:
     Unit* get_value(int );
     void print_clue();
     void print_board();
-    void print_one(uint64_t );
+    void print_binary(uint64_t );
+    void print_symbol(uint64_t );
     void run();
+    Status status;
 };
 
 #endif
