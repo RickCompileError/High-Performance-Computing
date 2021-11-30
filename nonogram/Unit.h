@@ -20,7 +20,7 @@ private:
 public:
     Unit();
     void init();
-    void set(int ,int );
+    void set(int ,uint64_t );
     void set(uint64_t );
     uint64_t get();
     char get_char(int );
