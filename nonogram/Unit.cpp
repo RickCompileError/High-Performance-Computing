@@ -1,7 +1,7 @@
 #include "Unit.h"
 
 Unit::Unit(){
-    v = 0;
+    v = IZERO;
     for (int i=0;i<26;i++) v = (v<<2)+IU;
 }
 
@@ -10,7 +10,7 @@ Unit::Unit(uint64_t v){
 }
 
 void Unit::init(){
-    v = 0;
+    v = IZERO;
     for (int i=0;i<26;i++) v = (v<<2)+IU;
 }
 

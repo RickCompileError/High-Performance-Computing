@@ -2,14 +2,14 @@
 #define PROPOGATE_H
 
 #include <vector>
+#include "Board.h"
+#include "Collector.h"
 
 using namespace std;
 
-class Board;
-
 class Propogate{
 public:
-    void procedure(Board* );
+    void procedure(Board* ,Collector& );
     bool fix(int ,int ,vector<int>* ,uint64_t );
     bool fix0(int ,int ,vector<int>* ,uint64_t );
     bool fix1(int ,int ,vector<int>* ,uint64_t );

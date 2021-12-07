@@ -1,8 +1,15 @@
 #include "Board.h"
 
 Board::Board(){
+    value = new Unit[SIZE];
+    clue = new vector<int>[SIZE];
     for (int i=0;i<50;i++) value[i].init(), clue[i].clear();
     status = INCOMPLETE;
+}
+
+Board::Board(Unit *u, vector<int> *v){
+    this->value = u;
+    this->clue = v;
 }
 
 void Board::init(){
@@ -18,13 +25,17 @@ vector<int>* Board::get_clue(int line){
     return clue+line;
 }
 
+void Board::set_value(int line, Unit* num){
+    value[line].set(num->get());
+}
+
 Unit* Board::get_value(int line){
     return value+line;
 }
 
 void Board::print_clue(){
-    for (vector<int> i: clue){
-        for (int j: i) cout <<j <<' ';
+    for (int i=0;i<SIZE;i++){
+        for (int j: clue[i]) cout <<j <<' ';
         cout <<endl;
     }
 }
@@ -54,7 +65,20 @@ void Board::print_symbol(uint64_t u){
     cout <<endl;
 }
 
-void Board::run(){
-    Propogate* pro = new Propogate();
-    pro->procedure(this);
+void Board::update(Board *board){
+    for (int i=0;i<SIZE;i++) this->set_value(i,board->get_value(i));
+}
+
+bool Board::check(){
+    for (int i=0;i<SIZE;i++)
+        for (int j=1;j<=25;j++)
+            if (get_pixel(value[i].get(),j)==U) return false;
+    return true;
+}
+
+Board* Board::deep_copy(){
+    Unit *u = new Unit[SIZE];
+    for (int i=0;i<SIZE;i++) u[i] = Unit(value[i].get());
+    vector<int> *v = clue;
+    return new Board(u,v);
 }

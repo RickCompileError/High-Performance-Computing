@@ -1,14 +1,14 @@
-#include "Board.h"
 #include "Propogate.h"
 #include "Set.h"
 
-void Propogate::procedure(Board* board){
-    Set* s = new Set();
-    int l;
-    vector<int>* c;
-    Unit* u;
+void Propogate::procedure(Board* board, Collector &pi){
+    Set* s = new Set(); //queue
+    int l; //line
+    vector<int>* c; //clue
+    Unit* u; //unit
     uint64_t before, after;
 
+    pi.clear();
     for (int i=0;i<50;i++) s->push(i);
     while (!s->empty()){
         l = s->pop();
@@ -21,18 +21,25 @@ void Propogate::procedure(Board* board){
         }
         after = paint(25,c->size(),c,before);
         if (before!=after){
-            u->set(after);
+            for (int i=0;i<=25;i++){
+                if (get_pixel(before,i)!=get_pixel(after,i)){
+                    u->set(i,get_pixel(after,i));
+                    pi.insert(l,i,get_pixel(after,i));
+                }
+            }
             int base = l<25?25:0; //determine row or col
             int ind = l%25+1; //which index need to get
             for (int i=1;i<=25;i++){
                 Unit* tmp = board->get_value(base+i-1);
                 if (get_pixel(after,i)!=get_pixel(tmp->get(),ind)){
                     tmp->set(ind,get_pixel(after,i));
+                    pi.insert(base+i-1,ind,get_pixel(after,i));
                     s->push(base+i-1);
                 }
             }
         }
     }
+    board->status = board->check()?SOLVED:INCOMPLETE;
 }
 
 bool Propogate::fix(int i, int j, vector<int> *dsp, uint64_t v){

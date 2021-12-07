@@ -4,29 +4,32 @@
 #include <iostream>
 #include <vector>
 #include "Unit.h"
-#include "Propogate.h"
 
 #define SIZE 50
 
-typedef enum {CONFLICT, INCOMPLETE, SOLVED} Status;
+typedef enum {CONFLICT, INCOMPLETE, SOLVED, PAINTED} Status;
 
 using namespace std;
 
 class Board{
 private:
-    Unit value[SIZE];
-    vector<int> clue[SIZE];
+    Unit* value;
+    vector<int>* clue;
 public:
     Board();
+    Board(Unit* ,vector<int>* );
     void init();
     void set_clue(int ,int );
     vector<int>* get_clue(int );
+    void set_value(int ,Unit* );
     Unit* get_value(int );
     void print_clue();
     void print_board();
     void print_binary(uint64_t );
     void print_symbol(uint64_t );
-    void run();
+    void update(Board* );
+    bool check();
+    Board* deep_copy();
     Status status;
 };
 
