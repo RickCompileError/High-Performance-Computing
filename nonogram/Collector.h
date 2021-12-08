@@ -14,6 +14,7 @@ public:
     Collector(Collector& ,Collector& ,int );
     void insert(int ,int ,uint64_t );
     Unit* get_value(int );
+    uint64_t get_pix(int ,int );
     void update_G(Board* );
     int get_count();
     void clear();

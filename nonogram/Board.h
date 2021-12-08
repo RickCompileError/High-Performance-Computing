@@ -23,6 +23,8 @@ public:
     vector<int>* get_clue(int );
     void set_value(int ,Unit* );
     Unit* get_value(int );
+    void set_pix(int ,int ,uint64_t );
+    uint64_t get_pix(int ,int );
     void print_clue();
     void print_board();
     void print_binary(uint64_t );

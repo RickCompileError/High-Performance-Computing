@@ -1,12 +1,12 @@
 #include <cstdio>
 #include "Board.h"
-#include "FP1.h"
+#include "Backtrack.h"
 
 using namespace std;
 
 void start(FILE *);
 
-int main(){
+int main(){    
     FILE *myfile = fopen("in.txt","r");
     if (myfile==NULL){
         printf("Reading File Error!");
@@ -33,9 +33,10 @@ void start(FILE *myfile){
             board->set_clue(i,num);
         }
         printf("$%d\n",cs);
-        FP1::procedure(board);
+        board = Backtrack::procedure(board);
+        printf("Cost: %.2f\n",(float)(clock()-t)/CLOCKS_PER_SEC);
         cout <<"Board Status: " <<board->status <<endl;
         board->print_board();
-        printf("Case %d cost: %.2f\n\n",cs,(float)(clock()-t)/CLOCKS_PER_SEC);
+        cout <<endl;
     }
 }

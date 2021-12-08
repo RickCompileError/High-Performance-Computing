@@ -7,7 +7,7 @@
 class FP1{
 public:
     static void procedure(Board* );
-    static void probe(int ,int ,Board* ,Board* ,Board* ,Collector& );
+    static void probe(int ,int ,Board* ,Collector& );
 };
 
 #endif

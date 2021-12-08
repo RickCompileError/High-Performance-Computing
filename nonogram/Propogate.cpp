@@ -21,7 +21,7 @@ void Propogate::procedure(Board* board, Collector &pi){
         }
         after = paint(25,c->size(),c,before);
         if (before!=after){
-            for (int i=0;i<=25;i++){
+            for (int i=1;i<=25;i++){
                 if (get_pixel(before,i)!=get_pixel(after,i)){
                     u->set(i,get_pixel(after,i));
                     pi.insert(l,i,get_pixel(after,i));

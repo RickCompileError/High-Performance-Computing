@@ -33,6 +33,14 @@ Unit* Board::get_value(int line){
     return value+line;
 }
 
+void Board::set_pix(int line, int pix, uint64_t v){
+    value[line].set(pix,v);
+}
+
+uint64_t Board::get_pix(int line, int pix){
+    return get_pixel(value[line].get(),pix);
+}
+
 void Board::print_clue(){
     for (int i=0;i<SIZE;i++){
         for (int j: clue[i]) cout <<j <<' ';
@@ -43,7 +51,7 @@ void Board::print_clue(){
 void Board::print_board(){
     for (int i=0;i<25;i++){
         for (int j=1;j<=25;j++){
-            cout <<value[i].get_char(j) <<' ';
+            cout <<value[i].get_char(j);
         }
         cout <<endl;
     }
