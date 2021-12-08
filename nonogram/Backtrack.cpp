@@ -30,10 +30,10 @@ Board* Backtrack::procedure(Board* g){
     choose(g,i,j);
     g0->set_pix(i,j,ZERO), g0->set_pix(25+j-1,i+1,ZERO);
     g = g0;
-    Backtrack::procedure(g);
+    g = Backtrack::procedure(g);
     if (g->status==SOLVED) return g;
     g1->set_pix(i,j,ONE), g1->set_pix(25+j-1,i+1,ONE);
     g = g1;
-    Backtrack::procedure(g);
+    g = Backtrack::procedure(g);
     return g;
 }
