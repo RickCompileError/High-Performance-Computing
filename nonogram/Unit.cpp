@@ -2,7 +2,7 @@
 
 Unit::Unit(){
     v = IZERO;
-    for (int i=0;i<26;i++) v = (v<<2)+IU;
+    for (int i=0;i<25;i++) v = (v<<2)+IU;
 }
 
 Unit::Unit(uint64_t v){
@@ -11,7 +11,7 @@ Unit::Unit(uint64_t v){
 
 void Unit::init(){
     v = IZERO;
-    for (int i=0;i<26;i++) v = (v<<2)+IU;
+    for (int i=0;i<25;i++) v = (v<<2)+IU;
 }
 
 void Unit::set(int pos, uint64_t v){
