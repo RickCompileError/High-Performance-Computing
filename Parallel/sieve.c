@@ -21,6 +21,7 @@ int main(int argc, char **argv){
     ierr = MPI_Init(&argc, &argv);
     ierr = MPI_Comm_rank(MPI_COMM_WORLD, &id);
     ierr = MPI_Comm_size(MPI_COMM_WORLD, &psz);
+    // sz = (ll)atof(argv[1])+1 // for manual input
     sz = 500000001;
     arr = calloc(sz,sizeof(bool));
     bsz = BLOCK_SIZE(id,psz,sz);
